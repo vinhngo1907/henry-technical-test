@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+dump.rdb
+npm-debug.log
+.env
+.env.dev
+# /packages/**/package-*.json
+/.vscode
+.DS_Store
+tmp
+request.http
+app_error.log
+logs
