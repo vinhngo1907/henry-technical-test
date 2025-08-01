@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { postDataAPI } from '../utils/apis/FetchData';
 import { transactionUrl } from '../context/constants';
-import { setLoading, setSuccess, setError } from './alertSlice';
+import { setLoading, setSuccess, setError, setAlertFields } from './alertSlice';
+import valid from '../utils/validation/valid';
 
 export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
     // const res = await postDataAPI(`${transactionUrl}/api/auth/login`, data);
@@ -42,26 +43,37 @@ export const login = createAsyncThunk('auth/login', async (data, thunkAPI) => {
 //     };
 // });
 
-export const register = createAsyncThunk('auth/register', async (data, thunkAPI) => {
-    const { dispatch } = thunkAPI;
-    try {
-        dispatch(setLoading());
+export const register = createAsyncThunk(
+    'auth/register',
+    async (data, thunkAPI) => {
+        const { dispatch } = thunkAPI;
+        const check = valid(data);
+        console.log(">>>", check)
+        if (check.errLength > 0) {
+            dispatch(setAlertFields(check.errMsg));
+            return thunkAPI.rejectWithValue(check.errMsg);
+        }
 
-        const res = await postDataAPI(`${transactionUrl}/api/auth/register`, data);
-        localStorage.setItem('firstLogin', true);
+        try {
+            dispatch(setLoading());
 
-        dispatch(setSuccess(res.data.msg));
+            const res = await postDataAPI(`${transactionUrl}/api/auth/register`, data);
+            localStorage.setItem('firstLogin', true);
 
-        return {
-            token: res.data.accessToken,
-            user: res.data.user,
-            msg: res.data.msg,
-        };
-    } catch (error) {
-        dispatch(setError(error.response?.data?.msg || 'Register failed'));
-        return thunkAPI.rejectWithValue(error.response?.data?.msg);
+            dispatch(setSuccess(res.data.msg));
+
+            return {
+                token: res.data.accessToken,
+                user: res.data.user,
+                msg: res.data.msg,
+            };
+        } catch (error) {
+            const message = error.response?.data?.msg || 'Register failed';
+            dispatch(setError(message));
+            return thunkAPI.rejectWithValue(message);
+        }
     }
-});
+);
 
 export const refreshToken = createAsyncThunk('auth/refreshToken', async (_, thunkAPI) => {
     const firstLogin = localStorage.getItem('firstLogin');

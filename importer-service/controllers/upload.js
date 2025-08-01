@@ -32,10 +32,10 @@ const handleUpload = async (req, res) => {
         }
 
         fs.unlinkSync(filePath);
-        res.json({ message: "✅ File processed", total: results.length });
+        res.json({ msg: "✅ File processed", total: results.length });
     } catch (error) {
         fs.unlinkSync(filePath);
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ msg: error.message });
     }
 };
 

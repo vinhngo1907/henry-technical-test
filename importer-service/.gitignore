@@ -11,3 +11,4 @@ tmp
 request.http
 app_error.log
 logs
+uploads

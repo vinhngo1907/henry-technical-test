@@ -1,4 +1,4 @@
-# Technical Test - Readme
+# Technical Test
 ## 🔧 1. Software Development Principles & Practices
 
 This system is built with the following principles:
@@ -27,16 +27,20 @@ henry-technical-test/
 │   ├── controllers/        # Business logic (Create/Get Transaction)
 │   └── middleware/         # Auth middleware (JWT verification)
 │   └── index.js            # Main file app
+│   └── Dockerfile          # Docker file
 │
-├── importer-service/       # CSV upload + parser + forwarder to transaction-service
+├── importer-service/       # CSV upload + parser + forwarder to transaction
 │   └── utils/              # CSV parser, validation logic
 │   └── middleware/         # Upload middleware
+│   └── controllers/        # Express Controllers
+│   └── routes/             # Express routes
 │   └── index.js            # Main file app
+│   └── Dockerfile            # Docker file
 │
 ├── docker-compose.yml      # Define DB, client, server setup
 └── docs                    # Required documents
 │   └── png files           # Images design
-│   └── postman.json        # Postman docs
+│   └── apis_postman.postman_collection        # Postman docs
 └── README.md
 
 ```
@@ -61,7 +65,7 @@ henry-technical-test/
 
 ### 🔃 Setup Steps
 
-1. Local Development Guideline
+**1. Local Development Guideline**
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -87,7 +91,7 @@ http://localhost:3000
 
 ---
 
-2. Deployment Guideline
+**2. Deployment Guideline**
 
 ### Prerequisites
 - Render
@@ -105,7 +109,7 @@ http://localhost:3000
       * `client-upload/build` (for user app)
 3. Netlify will automatically build and deploy.
 
-Back-end: 
+**2. Deploy Server in [Render](https://render.com/)**
 1. Create an account and connect GitHub repo.
 2. Create Web Service on Render.
 3. Configuration:
