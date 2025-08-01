@@ -30,12 +30,16 @@ const authController = {
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) return res.status(400).json({ msg: "Password is not correct!" });
 
-            const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN, { expiresIn: "1d" });
-            const rfToken = jwt.sign({ userId: user.ud }, REFRESH_TOKEN, { expiresIn: "7d" });
-            res.cookie("rf_v", rfToken, {
+            // const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN, { expiresIn: "1d" });
+            // const rfToken = jwt.sign({ userId: user.ud }, REFRESH_TOKEN, { expiresIn: "7d" });
+            console.log({ userId: user.id })
+            const accessToken = createAccessToken({ userId: user.id });
+            console.log({ accessToken })
+            const rfToken = createRefreshToken({ userId: user.id })
+            res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: "/api/auth/refresh-token"
+                path: "/api/auth/refresh_token"
             });
 
             delete user.password;
@@ -65,13 +69,16 @@ const authController = {
             const user = await prisma.user.create({
                 data: { email, password: hash },
             });
-            const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN, { expiresIn: "1d" });
-            const rfToken = jwt.sign({ userId: user.ud }, REFRESH_TOKEN, { expiresIn: "7d" });
+            // const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN, { expiresIn: "1d" });
+            // const rfToken = jwt.sign({ userId: user.id }, REFRESH_TOKEN, { expiresIn: "7d" });
+            const accessToken = createAccessToken({ userId: user.id });
+            const rfToken = createRefreshToken({ userId: user.id })
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: "/api/auth/refresh-token"
+                path: "/api/auth/refresh_token"
             });
+
             delete user.password;
             res.json({ msg: 'User registered', accessToken, user });
         } catch (error) {
@@ -80,25 +87,26 @@ const authController = {
     },
     refreshToken: async (req, res) => {
         try {
+            // console.log("???", req.cookies)
             const rf_token = req.cookies.v_rf;
-            if (!rf_token) return res.status(400).json({ msg: "Please login now." })
+            if (!rf_token) return res.status(400).json({ msg: "Please login now." });
 
-            jwt.verify(rf_token, process.env.REFRESH_TOKEN, async (err, result) => {
-                if (err) return res.status(400).json({ msg: "Please login now." })
-
+            jwt.verify(rf_token, REFRESH_TOKEN, async (err, result) => {
+                if (err) return res.status(400).json({ msg: "Something wrong! Please login now." })
+                // console.log({result})
                 const user = await prisma.user.findUnique({
-                    where:{
-                        id: result.id,
+                    where: {
+                        id: result.userId,
                         // email: result.email
                     }
                 });
 
                 if (!user) return res.status(400).json({ msg: "This does not exist." })
 
-                const access_token = createAccessToken({ id: result.id })
+                const access_token = createAccessToken({ userId: result.userId })
 
                 res.json({
-                    access_token,
+                    accessToken: access_token,
                     user
                 })
             })
@@ -117,11 +125,11 @@ const authController = {
 }
 
 const createAccessToken = (payload) => {
-    return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1d'})
+    return jwt.sign(payload, ACCESS_TOKEN, { expiresIn: '1d' })
 }
 
 const createRefreshToken = (payload) => {
-    return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '30d'})
+    return jwt.sign(payload, REFRESH_TOKEN, { expiresIn: '7d' })
 }
 
 
