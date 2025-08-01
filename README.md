@@ -58,19 +58,14 @@ henry-technical-test/
 
 ## 🖥️ 3. Running the App Locally
 
-### ✅ Prerequisites
-
-- Node.js v20+ and `npm` or `yarn`
-- Docker & Docker Compose
-- PostgreSQL (can use Docker setup)
-
 ### 🔃 Setup Steps
 
 **1. Local Development Guideline**
 
 ### Prerequisites
+- Node.js v20+ and `npm` or `yarn`
 - Docker & Docker Compose
-- Node.js (v16 or newer), npm and yarn
+- PostgreSQL (can use Docker setup)
 
 ### Setup Local Development Environment
 
