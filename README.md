@@ -129,7 +129,7 @@ TRANSACTION_URL={PRODUCTION_TRANSACTION_URL}
 IMPORTER_URL={PRODUCTION_IMPORTER_URL}
 CLIENT_URL={PRODUCTION_CLIENT_URL}
 ```
-3. The file should NEVER been committed to source control, because it contains sensitive information.
+3. The files should NEVER been committed to source control, because it contains sensitive information.
 
 4. Render will automatically build and deploy when there is an update from GitHub.
 
