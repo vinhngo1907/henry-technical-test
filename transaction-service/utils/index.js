@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
 
-exports.generateAccessToken = () => {
+exports.generateAccessToken = (payload) => {
 
 }
 
-exports.generateRefreshToken = () => {
+exports.generateRefreshToken = (payload) => {
 
 }

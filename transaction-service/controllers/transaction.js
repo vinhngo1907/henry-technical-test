@@ -38,7 +38,7 @@ const transactionController = {
     },
 
     get: async (req, res) => {
-        console.log("???", req.user)
+        // console.log("???", req.user)
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
@@ -50,7 +50,7 @@ const transactionController = {
                 take: limit,
                 orderBy: { date: 'desc' }, // optional
             }),
-            prisma.transaction.count()
+            prisma.transaction.count({where: {userId: req.user.id}})
         ]);
 
         res.json({

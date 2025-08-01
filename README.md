@@ -27,16 +27,20 @@ henry-technical-test/
 │   ├── controllers/        # Business logic (Create/Get Transaction)
 │   └── middleware/         # Auth middleware (JWT verification)
 │   └── index.js            # Main file app
+│   └── Dockerfile          # Docker file
 │
-├── importer-service/       # CSV upload + parser + forwarder to transaction-service
+├── importer-service/       # CSV upload + parser + forwarder to transaction
 │   └── utils/              # CSV parser, validation logic
 │   └── middleware/         # Upload middleware
+│   └── controllers/        # Express Controllers
+│   └── routes/             # Express routes
 │   └── index.js            # Main file app
+│   └── Dockerfile            # Docker file
 │
 ├── docker-compose.yml      # Define DB, client, server setup
 └── docs                    # Required documents
 │   └── png files           # Images design
-│   └── postman.json        # Postman docs
+│   └── apis_postman.postman_collection        # Postman docs
 └── README.md
 
 ```
