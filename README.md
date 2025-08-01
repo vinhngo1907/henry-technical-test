@@ -35,12 +35,13 @@ henry-technical-test/
 │   └── controllers/        # Express Controllers
 │   └── routes/             # Express routes
 │   └── index.js            # Main file app
-│   └── Dockerfile            # Docker file
+│   └── Dockerfile          # Docker file
 │
 ├── docker-compose.yml      # Define DB, client, server setup
 └── docs                    # Required documents
 │   └── png files           # Images design
 │   └── apis_postman.postman_collection        # Postman docs
+└── LICENSE
 └── README.md
 
 ```
@@ -59,7 +60,7 @@ henry-technical-test/
 
 ### ✅ Prerequisites
 
-- Node.js v16+ and `npm` or `yarn`
+- Node.js v20+ and `npm` or `yarn`
 - Docker & Docker Compose
 - PostgreSQL (can use Docker setup)
 
@@ -101,7 +102,7 @@ http://localhost:3000
 
 ### Deployment Steps
 
-**1. Deploy Client Upload service in [Netlify](https://netlify.com/)**
+**1. Deploy Client Upload in [Netlify](https://netlify.com/)**
 1. Go to Netlify and select "Import from GitHub".
 2. Select the repo, configure:
   - Build command: `npm run build`
@@ -142,7 +143,7 @@ The project uses **Render** (for backend) and **Netlify** (for frontend) for CI/
 
 You can use the Postman collection below to test all endpoints:
 
-📥 [Download Postman Collection](./docs/postman_collection.json)
+📥 [Download Postman Collection](./docs/apis_postman.postman_collection)
 
 - Use this Postman document for testing apis
 
