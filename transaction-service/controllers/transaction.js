@@ -10,7 +10,7 @@ const transactionController = {
             const user = req.user;
             if (!user) return res.status(400).json({ msg: "Please login now!" })
             const { date, content, amount, type } = req.body;
-            console.log("?????", req.body)
+            // console.log("?????", req.body)
             const parsedDate = dayjs(date, 'DD/MM/YYYY HH:mm:ss', true);
             if (!parsedDate.isValid()) {
                 return res.status(400).json({ error: 'Invalid date format. Expected DD/MM/YYYY HH:mm:ss' });
@@ -39,13 +39,13 @@ const transactionController = {
 
     get: async (req, res) => {
         console.log("???", req.user)
-        console.log("???", req.query)
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
 
         const [transactions, total] = await Promise.all([
             prisma.transaction.findMany({
+                where: {userId: req.user.id},
                 skip,
                 take: limit,
                 orderBy: { date: 'desc' }, // optional

@@ -12,6 +12,7 @@ import Alert from './components/alert/Alert'
 import PrivateRouter from './customRouter/PrivateRouter';
 import Header from './components/Header';
 import Transactions from './components/Transactions';
+import Register from './components/Register';
 
 function App() {
 	const { auth } = useSelector(state => state);
@@ -29,7 +30,8 @@ function App() {
 					{auth.token && <Header />}
 					<Routes>
 						<Route path="/" element={!auth.token ? <Login /> : <Home />} />
-						{/* <Route path="/register" component={Register} /> */}
+						<Route path="/register" element={!auth.token ? <Register /> : <Home />} />
+						
 
 						{/* <PrivateRouter path="/upload" component={Upload} /> */}
 						<Route
