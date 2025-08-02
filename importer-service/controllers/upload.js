@@ -9,16 +9,16 @@ const handleUpload = async (req, res) => {
     const filePath = req.file.path;
 
     if (!req.headers.authorization) {
-        // if (fs.existsSync(filePath)) {
-        //     fs.unlinkSync(filePath);
-        // }
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
         return res.status(401).json({ msg: "Missing Authorization header" });
     }
 
     // Check file size
     const stats = fs.statSync(filePath);
     if (stats.size > MAX_FILE_SIZE) {
-        // if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
         return res.status(400).json({ msg: "❌ File size exceeds 10KB limit" });
     }
 
@@ -41,15 +41,15 @@ const handleUpload = async (req, res) => {
             }
         }
 
-        // if (fs.existsSync(filePath)) {
-        //     fs.unlinkSync(filePath);
-        // }
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
 
         res.json({ msg: "✅ File processed", total: results.length });
     } catch (error) {
-        // if (fs.existsSync(filePath)) {
-        //     fs.unlinkSync(filePath);
-        // }
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
         res.status(500).json({ msg: error.message });
     }
 };
