@@ -36,10 +36,12 @@ const authController = {
             const accessToken = createAccessToken({ userId: user.id });
             console.log({ accessToken })
             const rfToken = createRefreshToken({ userId: user.id })
-            console.log({rfToken});
+            console.log({ rfToken });
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "None",
                 path: `/api/auth/refresh_token`
             });
 
@@ -77,6 +79,8 @@ const authController = {
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "None",
                 path: `/api/auth/refresh_token`
             });
 
