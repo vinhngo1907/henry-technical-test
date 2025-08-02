@@ -41,7 +41,7 @@ const authController = {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                sameSite: "None",
+                sameSite: process.env.NODE_ENV === "production" ?  "None" : "Lax",
                 path: "/api/auth/refresh_token"
             });
 
@@ -80,8 +80,8 @@ const authController = {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                sameSite: "None",
-                path: `/api/auth/refresh_token`
+                sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+                path: "/api/auth/refresh_token"
             });
 
             delete user.password;
