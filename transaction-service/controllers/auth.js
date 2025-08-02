@@ -33,10 +33,11 @@ const authController = {
 
             // const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN, { expiresIn: "1d" });
             // const rfToken = jwt.sign({ userId: user.ud }, REFRESH_TOKEN, { expiresIn: "7d" });
-            console.log({ userId: user.id })
+            // console.log({ userId: user.id })
             const accessToken = createAccessToken({ userId: user.id });
             console.log({ accessToken })
             const rfToken = createRefreshToken({ userId: user.id })
+            console.log({rfToken});
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
@@ -88,7 +89,7 @@ const authController = {
     },
     refreshToken: async (req, res) => {
         try {
-            // console.log("???", req.cookies)
+            console.log("???", req.cookies.v_rf)
             const rf_token = req.cookies.v_rf;
             if (!rf_token) return res.status(400).json({ msg: "Please login now." });
 
@@ -117,7 +118,7 @@ const authController = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie('v_rf', { path: '/api/refresh_token' })
+            res.clearCookie('v_rf', { path: '/api/auth/refresh_token' })
             return res.json({ msg: "Logged out!" })
         } catch (err) {
             return res.status(500).json({ msg: err.message })
