@@ -3,20 +3,13 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Install dependencies for Express server
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy Express source code
-COPY . .
+COPY . .  # uploads/ 
 
-COPY uploads/ ./uploads/
-
-# Importance: Set NODE_ENV to production
 ENV NODE_ENV=production
 
-# Expose importer service port
 EXPOSE 3001
 
-# Start server (which also serves React build from ./public)
 CMD [ "npm", "run", "start" ]
