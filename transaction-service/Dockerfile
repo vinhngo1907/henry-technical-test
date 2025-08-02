@@ -16,7 +16,7 @@ COPY prisma ./prisma
 COPY . .
 
 # Generate Prisma Client
-# RUN npx prisma generate
+RUN npx prisma generate
 
 # Start app
 CMD ["npm", "start"]
