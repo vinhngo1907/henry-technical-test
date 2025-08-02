@@ -3,6 +3,7 @@ const { validateEmail } = require("../validations");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
+const { transactionUrl } = require("../../importer-service/utils/constants");
 const prisma = new PrismaClient();
 const ACCESS_TOKEN = process.env.ACCESS_SECRET;
 const REFRESH_TOKEN = process.env.REFRESH_SECRET;
@@ -39,7 +40,7 @@ const authController = {
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: "/api/auth/refresh_token"
+                path: `${transactionUrl}/api/auth/refresh_token`
             });
 
             delete user.password;
@@ -76,7 +77,7 @@ const authController = {
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: "/api/auth/refresh_token"
+                path: `${transactionUrl}/api/auth/refresh_token`
             });
 
             delete user.password;

@@ -79,9 +79,9 @@ cd henry-technical-test
 docker-compose up --build
 
 # Visit frontend
-http://localhost:3000
+http://localhost:5173/ 
 ```
-- Frontend runs at: `http://localhost:3000`
+- Frontend runs at: `http://localhost:5173`
 - Importer API: `http://localhost:3002`
 - Transaction API: `http://localhost:3001`
 - PostgreSQL port (default): `5432` or `25432` (changeable in `docker-compose.yml`)
@@ -125,11 +125,11 @@ TRANSACTION_URL={PRODUCTION_TRANSACTION_URL}
 IMPORTER_URL={PRODUCTION_IMPORTER_URL}
 CLIENT_URL={PRODUCTION_CLIENT_URL}
 ```
-3. The files should NEVER been committed to source control, because it contains sensitive information.
+4. The files should NEVER been committed to source control, because it contains sensitive information.
 
-4. Render will automatically build and deploy when there is an update from GitHub.
+5. Render will automatically build and deploy when there is an update from GitHub.
 
-### CI/CD Setup
+**3. CI/CD Setup**
 The project uses **Render** (for backend) and **Netlify** (for frontend) for CI/CD and deployment.
 
 - Backend is automatically deployed to [Render](https://render.com) when changes are pushed to the `main` branch in the `/transaction-service /importer-service` directory.
