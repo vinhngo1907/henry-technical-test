@@ -1,16 +1,22 @@
-FROM node:18-alpine
+# base image
+FROM node:20
 
 WORKDIR /app
 
+# Copy package files first
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install
 
-RUN npx prisma generate
+# Copy Prisma schema
+COPY prisma ./prisma
 
+# Copy the rest of your code
 COPY . .
 
-ENV NODE_ENV=production
+# Generate Prisma Client
+# RUN npx prisma generate
 
-EXPOSE 3002
-
-CMD [ "npm", "run", "start" ]
+# Start app
+CMD ["npm", "start"]
