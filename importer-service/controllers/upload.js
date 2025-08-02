@@ -3,13 +3,23 @@ const path = require("path");
 const axios = require("axios");
 const XLSX = require("xlsx");
 const { transactionUrl } = require("../utils/constants");
+const MAX_FILE_SIZE = 10 * 1024; // 10KB
 
 const handleUpload = async (req, res) => {
     const filePath = req.file.path;
 
     if (!req.headers.authorization) {
-        fs.unlinkSync(filePath);
-        return res.status(401).json({ error: "Missing Authorization header" });
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+        return res.status(401).json({ msg: "Missing Authorization header" });
+    }
+
+    // Check file size
+    const stats = fs.statSync(filePath);
+    if (stats.size > MAX_FILE_SIZE) {
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        return res.status(400).json({ msg: "❌ File size exceeds 10KB limit" });
     }
 
     const authHeader = req.headers.authorization;
@@ -31,10 +41,15 @@ const handleUpload = async (req, res) => {
             }
         }
 
-        fs.unlinkSync(filePath);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
         res.json({ msg: "✅ File processed", total: results.length });
     } catch (error) {
-        fs.unlinkSync(filePath);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
         res.status(500).json({ msg: error.message });
     }
 };

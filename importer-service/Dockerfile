@@ -10,8 +10,6 @@ RUN npm install
 # Copy Express source code
 COPY . .
 
-COPY uploads/ ./uploads/
-
 # Importance: Set NODE_ENV to production
 ENV NODE_ENV=production
 
