@@ -169,9 +169,10 @@ This document is used for next version in the future base on my thinking
 3. View list of imported transactions with pagination and summary
 
 **2. Deployment Process**
-1. Front-end:
-2. Back-end: 
-3. Database:
+1. Front-end: https://v-transaction.netlify.app
+2. Importer Service: https://importer-service.onrender.com
+3. Transaction Service: https://transaction-service.onrender.com
+3. Database: https://supabase.com
 4. CI server:Managed via Render (backend) and Netlify (frontend)
 
 ## 8. What can be improved
