@@ -6,6 +6,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const ACCESS_TOKEN = process.env.ACCESS_SECRET;
 const REFRESH_TOKEN = process.env.REFRESH_SECRET;
+const isProduction = process.env.NODE_ENV === 'production';
 
 const authController = {
     login: async (req, res) => {
@@ -39,10 +40,14 @@ const authController = {
             // console.log({ rfToken });
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
+                // httpOnly: true,
+                // secure: isProduction,
+                // sameSite: isProduction ?  "None" : "Lax",
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: process.env.NODE_ENV === "production" ?  "None" : "Lax",
-                path: "/api/auth/refresh_token"
+                secure: true,
+                sameSite: "None",
+                path: "/api/auth/refresh_token",
+                secure: true
             });
 
             delete user.password;
@@ -78,10 +83,13 @@ const authController = {
             const rfToken = createRefreshToken({ userId: user.id })
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
+                // httpOnly: true,
+                // secure: isProduction,
+                // sameSite: isProduction ? "None" : "Lax",
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-                path: "/api/auth/refresh_token"
+                secure: true,
+                sameSite: "None",
+                path: "/api/auth/refresh_token",
             });
 
             delete user.password;
