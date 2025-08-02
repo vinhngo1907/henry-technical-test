@@ -29,8 +29,10 @@ function App() {
 				<div className="main">
 					{auth.token && <Header />}
 					<Routes>
-						<Route path="/" element={!auth.token ? <Login /> : <Home />} />
-						<Route path="/register" element={!auth.token ? <Register /> : <Home />} />
+						{/* <Route exact path="/" element={!auth.token ? <Login /> : <Home />} />
+						<Route exact path="/register" element={!auth.token ? <Register /> : <Home />} /> */}
+						<Route exact path="/" Component={!auth.token ? Login : Home} />
+						<Route exact path="/register" Component={Register} />
 						
 
 						{/* <PrivateRouter path="/upload" component={Upload} /> */}

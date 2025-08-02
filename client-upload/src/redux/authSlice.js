@@ -48,7 +48,7 @@ export const register = createAsyncThunk(
     async (data, thunkAPI) => {
         const { dispatch } = thunkAPI;
         const check = valid(data);
-        console.log(">>>", check)
+        // console.log(">>>", check)
         if (check.errLength > 0) {
             dispatch(setAlertFields(check.errMsg));
             return thunkAPI.rejectWithValue(check.errMsg);
@@ -79,7 +79,7 @@ export const refreshToken = createAsyncThunk('auth/refreshToken', async (_, thun
     const firstLogin = localStorage.getItem('firstLogin');
     if (!firstLogin) throw new Error('No login found');
     const res = await postDataAPI(`${transactionUrl}/api/auth/refresh_token`);
-    console.log("????", res.data)
+    // console.log("????", res.data)
     return {
         token: res.data.accessToken,
         user: res.data.user,
