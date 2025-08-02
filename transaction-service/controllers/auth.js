@@ -40,7 +40,7 @@ const authController = {
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: `${transactionUrl}/api/auth/refresh_token`
+                path: `/api/auth/refresh_token`
             });
 
             delete user.password;
@@ -77,7 +77,7 @@ const authController = {
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                path: `${transactionUrl}/api/auth/refresh_token`
+                path: `/api/auth/refresh_token`
             });
 
             delete user.password;
