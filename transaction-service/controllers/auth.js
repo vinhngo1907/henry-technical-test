@@ -3,7 +3,6 @@ const { validateEmail } = require("../validations");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
-const { transactionUrl } = require("../../importer-service/utils/constants");
 const prisma = new PrismaClient();
 const ACCESS_TOKEN = process.env.ACCESS_SECRET;
 const REFRESH_TOKEN = process.env.REFRESH_SECRET;
