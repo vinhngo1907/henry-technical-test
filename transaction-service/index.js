@@ -15,7 +15,7 @@ app.use(cookieParser());
 //     credentials: true
 // }));
 
-const allowedOrigins = [clientUrl, transactionUrl];
+const allowedOrigins = [clientUrl, importerUrl];
 
 app.use(cors({
   origin: function (origin, callback) {
