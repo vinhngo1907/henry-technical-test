@@ -9,10 +9,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+// app.use(cors({
+//     // origin: ["http://localhost:5173", "http://localhost:3001"],
+//     origin: [clientUrl, importerUrl],
+//     credentials: true
+// }));
+
+const allowedOrigins = [clientUrl, transactionUrl];
+
 app.use(cors({
-    // origin: ["http://localhost:5173", "http://localhost:3001"],
-    origin: [clientUrl, importerUrl],
-    credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
+  credentials: true,
 }));
 
 app.use('/api', require('./routers'));

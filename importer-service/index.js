@@ -59,10 +59,24 @@ const cors = require("cors");
 const { clientUrl, transactionUrl } = require("./utils/constants");
 
 const app = express();
+// app.use(cors({
+//     origin: [clientUrl, transactionUrl],
+//     credentials: true
+// }));
+
+const allowedOrigins = [clientUrl, transactionUrl];
+
 app.use(cors({
-    origin: [clientUrl, transactionUrl],
-    credentials: true
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS: ' + origin));
+        }
+    },
+    credentials: true,
 }));
+
 
 const PORT = process.env.PORT || 3000;
 
