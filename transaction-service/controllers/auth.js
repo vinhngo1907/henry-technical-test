@@ -34,15 +34,15 @@ const authController = {
             // const rfToken = jwt.sign({ userId: user.ud }, REFRESH_TOKEN, { expiresIn: "7d" });
             // console.log({ userId: user.id })
             const accessToken = createAccessToken({ userId: user.id });
-            console.log({ accessToken })
+            // console.log({ accessToken })
             const rfToken = createRefreshToken({ userId: user.id })
-            console.log({ rfToken });
+            // console.log({ rfToken });
             res.cookie("v_rf", rfToken, {
                 maxAge: 7 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
                 sameSite: "None",
-                path: `/api/auth/refresh_token`
+                path: "/api/auth/refresh_token"
             });
 
             delete user.password;
@@ -92,7 +92,7 @@ const authController = {
     },
     refreshToken: async (req, res) => {
         try {
-            console.log("???", req.cookies.v_rf)
+            console.log("???", req.cookies)
             const rf_token = req.cookies.v_rf;
             if (!rf_token) return res.status(400).json({ msg: "Please login now." });
 
