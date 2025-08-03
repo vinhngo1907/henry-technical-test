@@ -55,13 +55,14 @@ henry-technical-test/
 
 ### 🔑 Key Libraries and Frameworks
 
-| Layer | Tech |
-|-------|------|
+| Layer    | Tech |
+|----------|------|
 | Frontend | React (Vite), Redux Toolkit, Axios, Bootstrap |
-| Backend | Node.js, Express, Prisma ORM |
-| DB      | PostgreSQL |
-| Auth    | JWT |
-| DevOps  | Docker, Docker Compose |
+| Backend  | Node.js, Express, Prisma ORM |
+| DB       | PostgreSQL |
+| Auth     | JWT |
+| DevOps   | Docker, Docker Compose |
+| CI/CD    | Git-base handled via Render and Netlify auto-deployment. |
 
 ## 🖥️ 3. Running the App Locally
 

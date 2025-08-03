@@ -14,14 +14,14 @@ const Login = () => {
     const [typePass, setTypePass] = useState(false);
     const { email, password } = userLogin;
     useEffect(() => {
-        if(auth.token) history.push("/")
-    },[auth.token])
+        if (auth.token) history("/")
+    }, [auth.token])
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(login(userLogin))
     }
     const handleChangeInput = (e) => {
-         const { name, value } = e.target
+        const { name, value } = e.target
         setUserLogin({ ...userLogin, [name]: value });
     }
     return (

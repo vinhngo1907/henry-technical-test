@@ -25,17 +25,16 @@ function App() {
 	return (
 		<Router>
 			<Alert />
-			<div className='App'>
+			<div className="App">
+				{auth.token && <Header />}
 				<div className="main">
-					{auth.token && <Header />}
 					<Routes>
-						{/* <Route exact path="/" element={!auth.token ? <Login /> : <Home />} />
-						<Route exact path="/register" element={!auth.token ? <Register /> : <Home />} /> */}
-						<Route exact path="/" Component={!auth.token ? Login : Home} />
-						<Route exact path="/register" Component={Register} />
-						
+						{/* Public Routes */}
+						<Route path="/login" element={<Login />} />
+						<Route path="/register" element={<Register />} />
+						<Route path="/" element={auth.token ? <Home /> : <Login />} />
 
-						{/* <PrivateRouter path="/upload" component={Upload} /> */}
+						{/* Private Routes */}
 						<Route
 							path="/upload"
 							element={
@@ -52,7 +51,6 @@ function App() {
 								</PrivateRouter>
 							}
 						/>
-
 					</Routes>
 				</div>
 			</div>

@@ -100,7 +100,7 @@ const authController = {
     },
     refreshToken: async (req, res) => {
         try {
-            console.log("???", req.cookies)
+            // console.log("???", req.cookies)
             const rf_token = req.cookies.v_rf;
             if (!rf_token) return res.status(400).json({ msg: "Please login now." });
 
