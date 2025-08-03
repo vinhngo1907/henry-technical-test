@@ -18,7 +18,7 @@ const Register = () => {
     const [typeCfPass, setTypeCfPass] = useState(false)
 
     useEffect(() => {
-        if (auth.token) history.push("/")
+        if (auth.token) history("/");
     }, [auth.token, history])
 
 
