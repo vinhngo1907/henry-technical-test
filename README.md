@@ -15,11 +15,14 @@ This system is built with the following principles:
 
 ```
 henry-technical-test/
-├── client/                 # Frontend React App (Vite)
-│   ├── components/         # Reusable components (Login, Upload, Transactions)
-│   ├── redux/              # Redux store, slices (auth, alert, transaction)
-│   ├── customRouter/       # Protected route components
-│   └── App.jsx             # Main app routing
+├── client-upload/         # Frontend React App (Vite)
+│   ├── src/components/    # Reusable components (Login, Upload, Transactions)
+│   ├── src/redux/         # Redux store, slices (auth, alert, transaction)
+│   ├── src/customRouter/  # Protected route components
+│   ├── src/utils/         # Fetch apis, validation
+│   ├── src/context/       # Config urls
+│   ├── src/styles/        # Style CSS
+│   └── src/App.jsx        # Main app routing
 │
 ├── transaction-service/    # Backend transaction microservice
 │   ├── prisma/             # Prisma schema and migration
@@ -27,6 +30,7 @@ henry-technical-test/
 │   ├── controllers/        # Business logic (Create/Get Transaction)
 │   └── middleware/         # Auth middleware (JWT verification)
 │   └── index.js            # Main file app
+│   └── .env                # Env for transaction-service
 │   └── Dockerfile          # Docker file
 │
 ├── importer-service/       # CSV upload + parser + forwarder to transaction
@@ -36,9 +40,11 @@ henry-technical-test/
 │   └── controllers/        # Express Controllers
 │   └── routes/             # Express routes
 │   └── index.js            # Main file app
+│   └── .env                # Env for importer-service
 │   └── Dockerfile          # Docker file
 │
 ├── docker-compose.yml      # Define DB, client, server setup
+├── .env                    # Setup env for docker-compose
 └── docs                    # Required documents
 │   └── png files           # Images design
 │   └── apis_postman.postman_collection        # Postman docs
@@ -75,16 +81,20 @@ henry-technical-test/
 git clone https://github.com/vinhngo1907/henry-technical-test.git
 cd henry-technical-test
 
-# Start services
+# Start services importer-service, transaction service and database
 docker-compose up --build
 
 # Visit frontend
+cd client-upload
+run npm insall & npm run dev
+
 http://localhost:5173/ 
 ```
 - Frontend runs at: `http://localhost:5173`
 - Importer API: `http://localhost:3002`
 - Transaction API: `http://localhost:3001`
-- PostgreSQL port (default): `5432` or `25432` (changeable in `docker-compose.yml`)
+- PostgreSQL port (default): `5432` or `25432` 
+**Note:** All of services will run on ports 3001, 3002 and 5432. If there is a port is being used, please change it to a different port in `docker-compose.yml` and `importer-service/.env`, `transaction-service/.env`
 
 ---
 
@@ -174,15 +184,13 @@ This document is used for next version in the future base on my thinking
 2. Importer Service: https://importer-service.onrender.com
 3. Transaction Service: https://transaction-service.onrender.com
 3. Database: https://supabase.com
-4. CI server:Managed via Render (backend) and Netlify (frontend)
+4. CI server: Managed via Render (backend) and Netlify (frontend). By creating 1 more branch called master(releases). The CI should support the app when code is merged to this branch.
 
 ## 8. What can be improved
 1. Support large file uploads (streaming, queues)
-
 2. Improve auth (token refresh, limits)
-
-3. Better UX (progress, feedback)
-
-4. Add CI/CD (Travis/Jenkins), tests
-
-5. Modularize for future scaling
+3. More usnit tests for back-end
+4. Write some end-to-end tests
+5. Better UX (progress, feedback)
+6. Add CI/CD (Travis/Jenkins), tests
+7. Modularize for future scaling 
