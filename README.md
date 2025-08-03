@@ -184,15 +184,13 @@ This document is used for next version in the future base on my thinking
 2. Importer Service: https://importer-service.onrender.com
 3. Transaction Service: https://transaction-service.onrender.com
 3. Database: https://supabase.com
-4. CI server:Managed via Render (backend) and Netlify (frontend)
+4. CI server: Managed via Render (backend) and Netlify (frontend). By creating 1 more branch called master(releases). The CI should support the app when code is merged to this branch.
 
 ## 8. What can be improved
 1. Support large file uploads (streaming, queues)
-
 2. Improve auth (token refresh, limits)
-
-3. Better UX (progress, feedback)
-
-4. Add CI/CD (Travis/Jenkins), tests
-
-5. Modularize for future scaling
+3. More usnit tests for back-end
+4. Write some end-to-end tests
+5. Better UX (progress, feedback)
+6. Add CI/CD (Travis/Jenkins), tests
+7. Modularize for future scaling 
